@@ -134,26 +134,28 @@ router.get("/login-test", auth, (req, res) => {
     });
 });
 
-// router.post("/update-user/:userid", auth, (req, res) => {
-//   Plant.findByIdAndUpdate(req.params.userid, { username: req.body.username })
-//     .then((updateddata) => {
-//       console.log("Update successful: ", updateddata);
-//       res.json(updateddata);
-//     })
-//     .catch((err) => {
-//       console.log("ERROR: ", err);
-//     });
-// });
+//UPDATE USERNAME
+router.post("/update-user/:userid", auth, (req, res) => {
+  User.findByIdAndUpdate(req.params.userid, { username: req.body.username })
+    .then((updateddata) => {
+      console.log("Update successful: ", updateddata);
+      res.json(updateddata);
+    })
+    .catch((err) => {
+      console.log("ERROR: ", err);
+    });
+});
 
-// router.delete("/delete-user/:userid", auth, (req, res) => {
-//   Plant.findByIdAndRemove(req.params.userid)
-//     .then((updateddata) => {
-//       console.log("User was deleted", updateddata);
-//       res.json({ message: "user has been deleted" });
-//     })
-//     .catch((err) => {
-//       console.log("ERROR", err);
-//     });
-// });
+//DELETE USER
+router.delete("/delete-user/:userid", auth, (req, res) => {
+  User.findByIdAndRemove(req.params.userid)
+    .then((updateddata) => {
+      console.log("User was deleted", updateddata);
+      res.json({ message: "user has been deleted" });
+    })
+    .catch((err) => {
+      console.log("ERROR", err);
+    });
+});
 
 module.exports = router;

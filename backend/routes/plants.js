@@ -45,6 +45,8 @@ router.get("/all-plants", auth, (req, res) => {
 //Second, what we will be updating
 router.post("/update-plant/:plantid", auth, (req, res) => {
   Plant.findByIdAndUpdate(req.params.plantid, { ...req.body })
+    // .WHERE() CHECKS IF ID IN TOKEN MATCHES THE ID OF PLANT
+    .where("owner", req.user.id)
     .then((updateddata) => {
       console.log("Update successful: ", updateddata);
       res.json(updateddata);
@@ -54,35 +56,37 @@ router.post("/update-plant/:plantid", auth, (req, res) => {
     });
 });
 
-// Pet.updateMany({ age: 11 }, { age: 6 })
-//   .then((res) => {
-//     console.log('Update successful: ', res);
-//   })
-//   .catch((err) => {
-//     console.log('Something went wrong: ', err);
-//   });
-
-//Example: find all animals and increment by one
-// Pet.updateMany({}, { $inc: { age: 1 } })
-//   .then((res) => {
-//     console.log('Update successful: ', res);
-//   })
-//   .catch((err) => {
-//     console.log('Something went wrong: ', err);
-//   });
-
-// Pet.updateOne({ name: 'NewCat' }, { name: 'Mittens' })
-//   .then((res) => {
-//     console.log('Update successful: ', res);
-//   })
-//   .catch((err) => {
-//     console.log('Something went wrong: ', err);
-//   });
+// ROUTE DOUBLE CHECKS IF PLANT OWNER ID MATCHES THE USER ID IN TOKEN
+// LINE 49 WITH .WHERE() DOES ALL THIS FOR US
+// router.post("/update-plant/:plantid", auth, function (req, res, next) {
+//   Plant.findByIdAndUpdate(req.params.plantid, { ...req.body })
+//     .then((updateddata) => {
+//       if (updateddata.owner._id == req.user.id) {
+//         updateddata
+//           .save()
+//           .then((results) => {
+//             console.log("plant was updated", results);
+//             res.json(results);
+//           })
+//           .catch((err) => {
+//             console.log("Something went wrong", err);
+//             res.json(err);
+//           });
+//       } else {
+//         console.log(req.user.id);
+//         res.json({ message: "You cannot update this" });
+//       }
+//     })
+//     .catch((err) => {
+//       console.log("ERROR:", err);
+//       res.json(err);
+//     });
+// });
 
 //DELETE
-
 router.delete("/delete-plant/:plantid", auth, (req, res) => {
   Plant.findByIdAndRemove(req.params.plantid)
+    .where("owner", req.user.id)
     .then((updateddata) => {
       console.log("Plant was deleted", updateddata);
       res.json({ message: "plant has been deleted" });
@@ -91,21 +95,5 @@ router.delete("/delete-plant/:plantid", auth, (req, res) => {
       console.log("ERROR", err);
     });
 });
-
-// Pet.deleteMany({ key: value })
-//   .then((res) => {
-//     console.log('Pet was deleted', res);
-//   })
-//   .catch((error) => {
-//     console.log('Something went wrong', err);
-//   });
-
-// Plant.deleteOne()
-//   .then((res) => {
-//     console.log("Plant was deleted", res);
-//   })
-//   .catch((error) => {
-//     console.log("Something went wrong", err);
-//   });
 
 module.exports = router;

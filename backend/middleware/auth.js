@@ -11,7 +11,6 @@ const auth = (req, res, next) => {
   }
 
   //Check if token is valid
-
   try {
     //verify all the information is correct
     //1st arg: the token we grabbed from the header
@@ -23,6 +22,15 @@ const auth = (req, res, next) => {
   } catch (err) {
     res.status(403).json(err);
   }
+
+  //CONDITIONAL FOR UPDATING/DELETING POSTS
+  // if (req.user.id !== req.owner) {
+  //   console.log("token id:", req.user.id);
+  //   console.log("plant owner id:", req.params.owner);
+  //   return res
+  //     .status(403)
+  //     .json({ message: "FORBIDDEN - you cannot update this" });
+  // }
 };
 
 module.exports = auth;
