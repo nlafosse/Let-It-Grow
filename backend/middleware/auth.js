@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
   //Get the token
-  let token = req.headers.authorization?.split(" ")[1]; //This will give us our token
+  // let token = req.headers.authorization?.split(" ")[1]; //This will give us our token
+  let token = req.headers.authorization;
   console.log("TOKEN:", token);
 
   if (!token) {
@@ -22,15 +23,6 @@ const auth = (req, res, next) => {
   } catch (err) {
     res.status(403).json(err);
   }
-
-  //CONDITIONAL FOR UPDATING/DELETING POSTS
-  // if (req.user.id !== req.owner) {
-  //   console.log("token id:", req.user.id);
-  //   console.log("plant owner id:", req.params.owner);
-  //   return res
-  //     .status(403)
-  //     .json({ message: "FORBIDDEN - you cannot update this" });
-  // }
 };
 
 module.exports = auth;

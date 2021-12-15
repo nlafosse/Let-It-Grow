@@ -11,8 +11,31 @@ const bcryptSalt = 10;
 const jwt = require("jsonwebtoken");
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+// router.get("/", function (req, res, next) {
+//   res.send("respond with a resource");
+// });
+
+//GET user for the Profile link in navbar
+router.get("/:userid", function (req, res) {
+  User.findOne({ _id: req.params.userid })
+    .then((results) => {
+      console.log("USER", results);
+      res.json(results);
+    })
+    .catch((err) => {
+      console.log("Something went wrong", err);
+    });
+});
+
+router.get("/user", auth, function (req, res) {
+  User.findById(req.user.id)
+    .then((results) => {
+      console.log("USER", results);
+      res.json(results);
+    })
+    .catch((err) => {
+      console.log("Something went wrong", err);
+    });
 });
 
 router.post("/sign-up", function (req, res, next) {
@@ -72,8 +95,6 @@ router.post("/sign-up", function (req, res, next) {
       console.log("Something went wrong", err);
       res.json(err);
     });
-
-  // res.json({ message: 'SUCCESS', user: userToCreate });
 });
 
 router.post("/login", (req, res) => {
@@ -156,6 +177,14 @@ router.delete("/delete-user/:userid", auth, (req, res) => {
     .catch((err) => {
       console.log("ERROR", err);
     });
+});
+
+//LOGOUT
+router.get("/logout", (req, res) => {
+  const { username, password } = req.body;
+
+  res.clearCookie("token");
+  res.json({ user: { username: "" }, success: true });
 });
 
 module.exports = router;

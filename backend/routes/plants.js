@@ -14,7 +14,8 @@ router.post("/add-plant", auth, (req, res, next) => {
     fertilized: req.body.fertilized,
     sunDirection: req.body.sunDirection,
     notes: req.body.notes,
-    owner: req.body.owner,
+    owner: req.user.id,
+    image: req.body.image,
   });
 
   Plant.create(plantToCreate)
@@ -28,8 +29,9 @@ router.post("/add-plant", auth, (req, res, next) => {
     });
 });
 
+//GET all plants
 router.get("/all-plants", auth, (req, res) => {
-  Plant.find()
+  Plant.find({ owner: req.user.id })
     .populate("owner")
     .then((results) => {
       res.json(results);
@@ -37,6 +39,18 @@ router.get("/all-plants", auth, (req, res) => {
     .catch((err) => {
       console.log("ERROR", err);
       res.json({ error: err.message });
+    });
+});
+
+//GET one plant
+router.get("/:plantid", auth, (req, res) => {
+  Plant.findOne({ _id: req.params.plantid })
+    .then((results) => {
+      console.log("PLANT", results);
+      res.json(results);
+    })
+    .catch((err) => {
+      console.log("Something went wrong", err);
     });
 });
 

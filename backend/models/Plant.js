@@ -24,6 +24,8 @@ const plantSchema = new Schema({
     ref: "User",
   },
 
+  image: String,
+
   time: {
     type: Date,
     default: Date.now,
