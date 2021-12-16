@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { post, remove } from "../http/actions";
+import React, { useState, useEffect } from "react";
+import { post, remove, get } from "../http/actions";
 
 const UpdatePlant = (props) => {
   const [name, setName] = useState("");
@@ -9,6 +9,8 @@ const UpdatePlant = (props) => {
   const [fertilized, setFertilized] = useState("");
   const [direction, setDirection] = useState("");
   const [notes, setNotes] = useState("");
+  //hook for the plant name for title
+  const [plant, setPlant] = useState("");
 
   const updatePlant = () => {
     let obj = {
@@ -20,10 +22,10 @@ const UpdatePlant = (props) => {
       sunDirection: direction,
       notes: notes,
     };
+
+    //CONDITIONAL TO ENSURE ONLY INPUT FIELDS FILLED GET UPDATED, AND EMPTY FIELDS KEEP DATA ALREADY STORED IN DB
     for (let x in obj) {
-      // console.log(Object.value(x))
       if (!obj[x]) {
-        //  console.log(“f,x)
         delete obj[x];
       }
     }
@@ -38,6 +40,17 @@ const UpdatePlant = (props) => {
         console.log("Something went wrong:", err);
       });
   };
+  useEffect(() => {
+    get(`/plants/${props.match.params.plantid}`)
+      .then((results) => {
+        console.log("RESULTS", results);
+        setPlant(results.data);
+      })
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      });
+  }, []);
+
   const deletePlant = () => {
     console.log("Attempting to delete");
     remove(`/plants/delete-plant/${props.match.params.plantid}`)
@@ -48,67 +61,86 @@ const UpdatePlant = (props) => {
         console.log("Something went wrong", err);
       });
   };
+
   return (
-    <div>
-      <h1>Update or Delete plant here</h1>
-      <input
-        type="text"
-        value={genus}
-        placeholder="genus"
-        onChange={(e) => {
-          setGenus(e.target.value);
-        }}
-      />
-      <input
-        type="text"
-        value={name}
-        placeholder="name"
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-      />
-      <input
-        type="date"
-        value={planted}
-        placeholder="planted on"
-        onChange={(e) => {
-          setPlanted(e.target.value);
-        }}
-      />
-      <input
-        type="date"
-        value={watered}
-        placeholder="last watered on"
-        onChange={(e) => {
-          setWatered(e.target.value);
-        }}
-      />
-      <input
-        type="date"
-        value={fertilized}
-        placeholder="last time fertilized"
-        onChange={(e) => {
-          setFertilized(e.target.value);
-        }}
-      />
-      <input
-        type="text"
-        value={direction}
-        placeholder="near window facing"
-        onChange={(e) => {
-          setDirection(e.target.value);
-        }}
-      />
-      <input
-        type="text"
-        value={notes}
-        placeholder="notes"
-        onChange={(e) => {
-          setNotes(e.target.value);
-        }}
-      />
-      <button onClick={updatePlant}>Update</button>
-      <button onClick={deletePlant}>DELETE</button>
+    <div className="updateContainer">
+      <div className="updateForm">
+        <h1>
+          Update {plant.genus} {plant.name}
+        </h1>
+        <label for="genus">Genus:</label>
+        <input
+          id="genus"
+          type="text"
+          value={genus}
+          onChange={(e) => {
+            setGenus(e.target.value);
+          }}
+        />
+        <br></br>
+        <label for="name">Name:</label>
+        <input
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+        <br></br>
+        <label for="planted">Planted on:</label>
+        <input
+          id="planted"
+          type="date"
+          value={planted}
+          onChange={(e) => {
+            setPlanted(e.target.value);
+          }}
+        />
+        <br></br>
+        <label for="water">Last watered on:</label>
+        <input
+          id="water"
+          type="date"
+          value={watered}
+          onChange={(e) => {
+            setWatered(e.target.value);
+          }}
+        />
+        <br></br>
+        <label for="fertilized">Last fertilized on:</label>
+        <input
+          id="fertilized"
+          type="date"
+          value={fertilized}
+          onChange={(e) => {
+            setFertilized(e.target.value);
+          }}
+        />
+        <br></br>
+        <label for="direction">Window direction:</label>
+        <input
+          id="direction"
+          type="text"
+          value={direction}
+          onChange={(e) => {
+            setDirection(e.target.value);
+          }}
+        />
+        <br></br>
+        <label for="notes">Notes:</label>
+        <input
+          id="notes"
+          type="text"
+          value={notes}
+          onChange={(e) => {
+            setNotes(e.target.value);
+          }}
+        />
+        <br></br>
+        <button onClick={updatePlant}>Update</button>
+        <button onClick={deletePlant}>DELETE</button>
+      </div>
     </div>
   );
 };

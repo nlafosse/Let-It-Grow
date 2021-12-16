@@ -17,47 +17,68 @@ const CreatePlant = () => {
 
   const createPlant = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", image[0]);
-    formData.append("upload_preset", "r691fonf");
-    //UPLOAD_PRESET is found in your cloudinary account settings. Make sure it's 'unsigned'
-    //CLOUD_NAME comes from youir cloudinary account
-    axios
-      .post("https://api.cloudinary.com/v1_1/deorw3ces/upload", formData)
-      .then((results) => {
-        setImage(results.data.url);
-        post("/plants/add-plant", {
-          name: name,
-          genus: genus,
-          planted: planted,
-          watered: watered,
-          fertilized: fertilized,
-          sunDirection: direction,
-          notes: notes,
-          image: results.data.url,
-        })
-          .then((results) => {
-            console.log("These are the results", results.data);
-            setPlantId(results.data._id);
-            setRedirect(true);
-          })
-          .catch((err) => {
-            console.log("Something went wrong:", err);
-          });
+    if (image) {
+      const formData = new FormData();
 
-        //results.data.url should be the url for the newly updated photo
-        //Once the image has uploaded, add the url to the backend
-        // post('/route', actions)
-        //   .then((results) => {
-        //     console.log('results', results);
-        //   })
-        //   .catch((err) => {
-        //     console.log(err.message);
-        //   });
+      formData.append("file", image[0]);
+      formData.append("upload_preset", "r691fonf");
+      //UPLOAD_PRESET is found in your cloudinary account settings. Make sure it's 'unsigned'
+      //CLOUD_NAME comes from youir cloudinary account
+      axios
+        .post("https://api.cloudinary.com/v1_1/deorw3ces/upload", formData)
+        .then((results) => {
+          setImage(results.data.url);
+          post("/plants/add-plant", {
+            name: name,
+            genus: genus,
+            planted: planted,
+            watered: watered,
+            fertilized: fertilized,
+            sunDirection: direction,
+            notes: notes,
+            image: results.data.url,
+          })
+            .then((results) => {
+              console.log("These are the results", results.data);
+              setPlantId(results.data._id);
+              setRedirect(true);
+            })
+            .catch((err) => {
+              console.log("Something went wrong:", err);
+            });
+
+          //results.data.url should be the url for the newly updated photo
+          //Once the image has uploaded, add the url to the backend
+          // post('/route', actions)
+          //   .then((results) => {
+          //     console.log('results', results);
+          //   })
+          //   .catch((err) => {
+          //     console.log(err.message);
+          //   });
+        })
+        .catch((err) => {
+          console.log("ERR", err);
+        });
+    } else {
+      post("/plants/add-plant", {
+        name: name,
+        genus: genus,
+        planted: planted,
+        watered: watered,
+        fertilized: fertilized,
+        sunDirection: direction,
+        notes: notes,
       })
-      .catch((err) => {
-        console.log("ERR", err);
-      });
+        .then((results) => {
+          console.log("These are the results", results.data);
+          setPlantId(results.data._id);
+          setRedirect(true);
+        })
+        .catch((err) => {
+          console.log("Something went wrong:", err);
+        });
+    }
   };
 
   return (

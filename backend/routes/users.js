@@ -16,16 +16,16 @@ const jwt = require("jsonwebtoken");
 // });
 
 //GET user for the Profile link in navbar
-router.get("/:userid", function (req, res) {
-  User.findOne({ _id: req.params.userid })
-    .then((results) => {
-      console.log("USER", results);
-      res.json(results);
-    })
-    .catch((err) => {
-      console.log("Something went wrong", err);
-    });
-});
+// router.get("/:userid", function (req, res) {
+//   User.findOne({ _id: req.params.userid })
+//     .then((results) => {
+//       console.log("USER", results);
+//       res.json(results);
+//     })
+//     .catch((err) => {
+//       console.log("Something went wrong", err);
+//     });
+// });
 
 router.get("/user", auth, function (req, res) {
   User.findById(req.user.id)

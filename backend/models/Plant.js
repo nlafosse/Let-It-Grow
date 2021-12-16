@@ -12,10 +12,7 @@ const plantSchema = new Schema({
   watered: String,
   fertilized: String,
 
-  sunDirection: {
-    type: String,
-    enum: ["north", "south", "east", "west"],
-  },
+  sunDirection: String,
 
   notes: String,
 
