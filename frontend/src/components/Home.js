@@ -9,10 +9,10 @@ const Home = () => {
           plant care tracking app
         </h6>
       </div>
-      <div>
+      {/* <div>
         <Link to="/signup">Sign Up</Link>
         <Link to="/login">Log In</Link>
-      </div>
+      </div> */}
     </div>
   );
 };

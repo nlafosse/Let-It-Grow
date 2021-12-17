@@ -24,14 +24,18 @@ const Alerts = () => {
   return (
     <div>
       <div className="plantsAlert">
-        <h5 className="titleStyle">Plants in need of attention</h5>
+        <h5 className="titleStyle" style={{ margin: "0", fontSize: "25px" }}>
+          Plants in need of attention
+        </h5>
         <h6>Not watered in more than 14 days</h6>
         {plantsArr.map((plant) => {
           return (
             <div>
               <p>
                 {new Date(plant.watered) < twoWeeksAgo ? (
-                  <Link to={`/plants/${plant._id}`}>{plant.name}</Link>
+                  <Link to={`/plants/${plant._id}`}>
+                    {plant.genus} {plant.name}
+                  </Link>
                 ) : null}
               </p>
             </div>
@@ -43,7 +47,9 @@ const Alerts = () => {
             <div>
               <p>
                 {new Date(plant.fertilized) < twoWeeksAgo ? (
-                  <Link to={`/plants/${plant._id}`}>{plant.name}</Link>
+                  <Link to={`/plants/${plant._id}`}>
+                    {plant.genus} {plant.name}
+                  </Link>
                 ) : null}
               </p>
             </div>
@@ -54,8 +60,10 @@ const Alerts = () => {
           return (
             <div>
               <p>
-                {new Date(plant.planted) < twoWeeksAgo ? (
-                  <Link to={`/plants/${plant._id}`}>{plant.name}</Link>
+                {new Date(plant.planted) < oneYear ? (
+                  <Link to={`/plants/${plant._id}`}>
+                    {plant.genus} {plant.name}
+                  </Link>
                 ) : null}
               </p>
             </div>

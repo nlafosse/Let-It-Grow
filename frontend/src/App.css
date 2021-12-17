@@ -2,6 +2,7 @@ body {
   /* background-image: url("./images/zzback.jpg"); */
   background: url("./images/zzback.jpg") no-repeat center fixed;
   background-size: cover;
+  overflow-x: hidden;
   /* background-repeat: no-repeat;
   background-size: 100%;
   background-color: #f8f8f6; */
@@ -51,14 +52,26 @@ body {
   width: 30%;
 }
 
-.signupForm {
+.signupFormContainer {
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  /* border: 1px solid #bee8ad; */
+  align-items: center;
+}
+
+.signupFormBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   border: 1px solid #bee8ad;
-  align-items: center;
-  padding: 50px 20px;
+  border-radius: 5px;
+  background-color: #648c58;
+  margin: 45px;
+  padding: 25px;
 }
+
 .loginForm {
   display: flex;
   flex-direction: column;
@@ -143,17 +156,18 @@ body {
   width: 50vw;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .weatherAndAlertsContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 100vw;
+  width: 80vw;
+  margin: 15px;
 }
 
 .weatherBox {
+  display: flex;
+  align-self: flex-start;
   border: 1px solid #648c58;
   border-radius: 5px;
   background-color: #bee8ad;
@@ -162,11 +176,26 @@ body {
 }
 
 .alertsBox {
+  width: 55%;
   border: 1px solid #648c58;
   border-radius: 5px;
   background-color: #bee8ad;
-  margin: 15px;
   padding: 15px;
+  margin: 15px;
+}
+
+.plantsAlert {
+  line-height: 12px;
+}
+
+.plantsAlert h6 {
+  font-variant: small-caps;
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+.plantsAlert a {
+  font-size: 15px;
+  color: #648c58;
 }
 
 .galleryPlantTitle {
@@ -197,5 +226,118 @@ body {
   font-style: oblique;
   font-size: 35px;
   font-family: Times, Times New Roman, serif;
+  text-align: center;
+}
+
+.singlePlantContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.singlePlantBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  margin-top: 20px;
+}
+
+.singlePlant {
+  width: 40%;
+  display: flex;
+  border: 1px solid #bee8ad;
+  border-radius: 5px;
+  background-color: #648c58;
+  margin: 15px;
+  padding: 15px 25px;
+}
+
+.singlePlant img {
+  /* width: 200px; */
+  height: 350px;
+  /* display: flex;
+  align-self: center; */
+  border-radius: 4px;
+}
+
+.singlePlantDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.singlePlantDetails li {
+  list-style-type: none;
+  color: white;
+}
+
+.singlePlantLinks {
+  width: 50vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.singlePlantUpdateButton {
+  display: flex;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.singlePlantUpdateButton a {
+  border-radius: 4px;
+  background-color: #bee8ad;
+  padding: 10px;
+  color: black;
+  font-size: 15px;
+  text-decoration: none;
+  border: 1px solid #648c58;
+}
+
+.singlePlantButtons a {
+  border-radius: 4px;
+  background-color: #bee8ad;
+  padding: 10px;
+  color: black;
+  font-size: 15px;
+  text-decoration: none;
+  border: 1px solid #648c58;
+}
+.addPlantButton a {
+  border-radius: 4px;
+  background-color: #bee8ad;
+  padding: 15px;
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+  border: 1px solid #648c58;
+}
+
+.userProfileButtons a {
+  border-radius: 4px;
+  background-color: #648c58;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  border: 1px solid #bee8ad;
+}
+
+.createContainer {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.createForm {
+  width: 50%;
+  border: 1px solid #bee8ad;
+  border-radius: 5px;
+  background-color: #648c58;
+  margin: 45px;
+  padding: 15px;
   text-align: center;
 }

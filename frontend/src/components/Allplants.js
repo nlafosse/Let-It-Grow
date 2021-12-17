@@ -5,27 +5,35 @@ import zzplaceholder from "../images/zzplaceholder.jpg";
 
 const Allplants = () => {
   const [plantsArr, setPlantsArr] = useState([]);
-  const [owner, setOwner] = useState({});
+  const [user, setUser] = useState({});
 
   useEffect(() => {
+    get("/users/user")
+      .then((results) => {
+        // console.log("RESULTS", results);
+        setUser(results.data);
+      })
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      });
     get("/plants/all-plants")
       .then((results) => {
         console.log("RESULTS", results);
         setPlantsArr(results.data);
-        setOwner(results.data[0].owner);
       })
       .catch((err) => {
         console.log("Something went wrong", err);
       });
   }, []);
   console.log("plantsArr:", plantsArr);
-  console.log("owner hook:", owner);
 
   return (
     <div>
       <div className="allPlantsHeader">
-        <h1 className="titleStyle">{owner.username}'s collection</h1>
-        <Link to="/addplant">Add new plant</Link>
+        <h1 className="titleStyle">{user.username}'s collection</h1>
+        <p className="addPlantButton">
+          <Link to="/addplant">Add new plant</Link>
+        </p>
       </div>
       <div className="allPlantsGallery">
         {plantsArr.map((plant) => {

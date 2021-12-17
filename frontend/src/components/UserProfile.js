@@ -23,13 +23,13 @@ const UserProfile = (props) => {
     <div className="userProfileContainer">
       <h2 class="titleStyle">Welcome, {user.username}</h2>
       <div class="userProfileLinks">
-        <div>
+        <div className="userProfileButtons">
           <Link to="/allplants">View plants</Link>
         </div>
-        <div>
+        <div className="userProfileButtons">
           <Link to="/addplant">Add new plant</Link>
         </div>
-        <div>
+        <div className="userProfileButtons">
           <Link to={`/update/${user._id}`}>Update user</Link>
         </div>
       </div>

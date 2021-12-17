@@ -22,30 +22,32 @@ const Signup = () => {
   };
 
   return (
-    <div className="signupForm">
-      <h1>SIGN IN PAGE</h1>
-      <input
-        type="text"
-        value={usernameHook}
-        placeholder="username"
-        onChange={(e) => {
-          setUsernameHook(e.target.value);
-        }}
-      />
-      <input
-        type="password"
-        value={passwordHook}
-        placeholder="password"
-        onChange={(e) => {
-          setPasswordHook(e.target.value);
-        }}
-      />
-      <button onClick={registerUser}>Sign Up</button>
+    <div className="signupFormContainer">
+      <div className="signupFormBox">
+        <h1 className="titleStyle">Sign Up</h1>
+        <input
+          type="text"
+          value={usernameHook}
+          placeholder="username"
+          onChange={(e) => {
+            setUsernameHook(e.target.value);
+          }}
+        />
+        <input
+          type="password"
+          value={passwordHook}
+          placeholder="password"
+          onChange={(e) => {
+            setPasswordHook(e.target.value);
+          }}
+        />
+        <button onClick={registerUser}>Sign Up</button>
 
-      {redirect && <Redirect to="/login" />}
-      <p>
-        Already have an account? <Link to="/login">Log In</Link>
-      </p>
+        {redirect && <Redirect to="/login" />}
+        <p>
+          Already have an account? <Link to="/login">Log In</Link>
+        </p>
+      </div>
     </div>
   );
 };

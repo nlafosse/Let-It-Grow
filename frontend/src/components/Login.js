@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { get, post } from "../http/actions";
+import { Context } from "../context/LoginContext";
 
 const Login = () => {
   const [usernameHook, setUsernameHook] = useState("");
   const [passwordHook, setPasswordHook] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [userId, setUserId] = useState("");
+
+  const { contextlogin } = useContext(Context);
 
   const login = () => {
     post("/users/login", {
@@ -18,6 +21,7 @@ const Login = () => {
         console.log("Token", results.data.token);
         //Store this in localStorage
         localStorage.setItem("token", results.data.token);
+        contextlogin();
         setUserId(results.data.id);
         setRedirect(true);
       })
@@ -37,9 +41,9 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="loginForm">
-        <h1>LOG IN PAGE</h1>
+    <div className="signupFormContainer">
+      <div className="signupFormBox">
+        <h1 className="titleStyle">Log In</h1>
         <input
           type="text"
           value={usernameHook}
@@ -58,9 +62,9 @@ const Login = () => {
         />
         <button onClick={login}>Log in</button>
         {redirect && <Redirect to={`/users/${userId}`} />}
-        <button style={{ color: "blue" }} onClick={loginTest}>
+        {/* <button style={{ color: "blue" }} onClick={loginTest}>
           Test login
-        </button>
+        </button> */}
         <p>
           Don't have an account? <Link to="/signup">Sign up</Link>
         </p>

@@ -1,8 +1,9 @@
-export const url = "http://localhost:5000";
+// export const url = "http://localhost:5000";
+export const url = "https://letitgrowtracker.herokuapp.com";
 
 //weather;
 export const apiurl =
-  "http://api.weatherapi.com/v1/current.json?key=a169d2d318284ec29fb01732211312&q=";
+  "https://api.weatherapi.com/v1/current.json?key=a169d2d318284ec29fb01732211312&q=";
 
 //ip check api for the weather api
 export const ipurl =
