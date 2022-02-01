@@ -17,17 +17,16 @@ const CreatePlant = () => {
 
   const createPlant = (e) => {
     e.preventDefault();
+
     if (image) {
       const formData = new FormData();
-
       formData.append("file", image[0]);
       formData.append("upload_preset", "r691fonf");
-      //UPLOAD_PRESET is found in your cloudinary account settings. Make sure it's 'unsigned'
-      //CLOUD_NAME comes from your cloudinary account
       axios
         .post("https://api.cloudinary.com/v1_1/deorw3ces/upload", formData)
         .then((results) => {
           setImage(results.data.url);
+          console.log("image after cloudinary .post", image);
           post("/plants/add-plant", {
             name: name,
             genus: genus,
@@ -46,16 +45,6 @@ const CreatePlant = () => {
             .catch((err) => {
               console.log("Something went wrong:", err);
             });
-
-          //results.data.url should be the url for the newly updated photo
-          //Once the image has uploaded, add the url to the backend
-          // post('/route', actions)
-          //   .then((results) => {
-          //     console.log('results', results);
-          //   })
-          //   .catch((err) => {
-          //     console.log(err.message);
-          //   });
         })
         .catch((err) => {
           console.log("ERR", err);
@@ -89,7 +78,6 @@ const CreatePlant = () => {
           <Link to="/allplants">View plants gallery</Link>
         </div>
       </div>
-      {/* <Link to="/allplants">View plants</Link> */}
       <div className="createContainer">
         <div className="createForm">
           <form method="post" type="file" encType="multipart/form-data">
@@ -166,24 +154,13 @@ const CreatePlant = () => {
             >
               textbox
             </textarea>
-            {/* <input
-              type="text"
-              value={notes}
-              placeholder="notes"
-              onChange={(e) => {
-                setNotes(e.target.value);
-              }}
-            /> */}
             <br></br>
             <label for="img">Select image:</label>
-            {/* This is the input for uploading a file */}
             <input
-              //This is a file upload
               type="file"
               name="test-image"
               accept="image/*"
               onChange={(e) => setImage(e.target.files)}
-              //don't set value of the hook
             />
             <br></br>
             <button onClick={createPlant}>Add New Plant</button>

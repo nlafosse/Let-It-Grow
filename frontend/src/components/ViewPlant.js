@@ -16,9 +16,7 @@ const ViewPlant = (props) => {
       .catch((err) => {
         console.log("Something went wrong", err);
       });
-  }, []);
-
-  console.log("PLANTHOOK", plant);
+  }, [props.match.params.plantid]);
 
   return (
     <div className="singlePlantContainer">
@@ -26,9 +24,6 @@ const ViewPlant = (props) => {
         {plant.genus} {plant.name}
       </p>
       <div class="singlePlantLinks">
-        {/* <div className="singlePlantButtons">
-          <Link to={`/plantsupdate/${props.match.params.plantid}`}>Update</Link>
-        </div> */}
         <div className="singlePlantButtons">
           <Link to="/allplants">View plants</Link>
         </div>
@@ -39,7 +34,7 @@ const ViewPlant = (props) => {
             {plant.image ? (
               <img src={plant.image} alt="plant" />
             ) : (
-              <img src={zzplaceholder} alt="no image placeholder" />
+              <img src={zzplaceholder} alt="placeholder" />
             )}
           </span>
           <div className="singlePlantDetailsContainer">

@@ -10,7 +10,6 @@ const Allplants = () => {
   useEffect(() => {
     get("/users/user")
       .then((results) => {
-        // console.log("RESULTS", results);
         setUser(results.data);
       })
       .catch((err) => {
@@ -44,7 +43,7 @@ const Allplants = () => {
                   {plant.image ? (
                     <img src={plant.image} alt="plant" />
                   ) : (
-                    <img src={zzplaceholder} alt="no image placeholder" />
+                    <img src={zzplaceholder} alt="placeholder" />
                   )}
                 </p>
                 <Link to={`/plants/${plant._id}`}>
@@ -64,8 +63,6 @@ const Allplants = () => {
               <div className="updateButton">
                 <Link to={`/plantsupdate/${plant._id}`}>Update</Link>
               </div>
-
-              {/* <Link to={`/plants/delete-plant/${plant._id}`}>Delete</Link> */}
             </div>
           );
         })}

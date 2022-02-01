@@ -10,7 +10,6 @@ const UserProfile = (props) => {
   useEffect(() => {
     get("/users/user")
       .then((results) => {
-        // console.log("RESULTS", results);
         setUser(results.data);
       })
       .catch((err) => {
@@ -18,7 +17,6 @@ const UserProfile = (props) => {
       });
   }, []);
 
-  // console.log("user", user);
   return (
     <div className="userProfileContainer">
       <h2 class="titleStyle">Welcome, {user.username}</h2>

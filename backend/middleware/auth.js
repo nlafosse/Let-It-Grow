@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
   //Get the token
-  // let token = req.headers.authorization?.split(" ")[1]; //This will give us our token
   let token = req.headers.authorization;
   console.log("TOKEN:", token);
 
@@ -11,11 +10,7 @@ const auth = (req, res, next) => {
     return res.status(403).json({ message: "No token found" });
   }
 
-  //Check if token is valid
   try {
-    //verify all the information is correct
-    //1st arg: the token we grabbed from the header
-    //2nd arg": the .env SECRET we added
     const decodedInfo = jwt.verify(token, process.env.SECRET);
     console.log("This info was hidden in the token", decodedInfo);
     req.user = decodedInfo.user;

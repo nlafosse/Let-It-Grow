@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { get, post } from "../http/actions";
+import { post } from "../http/actions";
 import { Context } from "../context/LoginContext";
 
 const Login = () => {
@@ -19,7 +19,6 @@ const Login = () => {
       .then((results) => {
         console.log("These are the results", results.data);
         console.log("Token", results.data.token);
-        //Store this in localStorage
         localStorage.setItem("token", results.data.token);
         contextlogin();
         setUserId(results.data.id);
@@ -29,16 +28,17 @@ const Login = () => {
         console.log("Something went wrong:", err);
       });
   };
-  const loginTest = () => {
-    console.log("Attempting to Test log in");
-    get("/users/login-test")
-      .then((results) => {
-        console.log("This is our user", results.data);
-      })
-      .catch((err) => {
-        console.log("Something went wrong", err);
-      });
-  };
+
+  // const loginTest = () => {
+  //   console.log("Attempting to Test log in");
+  //   get("/users/login-test")
+  //     .then((results) => {
+  //       console.log("This is our user", results.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("Something went wrong", err);
+  //     });
+  // };
 
   return (
     <div className="signupFormContainer">
